@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fun Gender Site</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to right, #8e2de2, #4a00e0);
+      color: white;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      overflow-x: hidden;
+    }
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 20px;
+      animation: fadeInDown 1s ease-in-out;
+    }
+    button, a {
+      padding: 12px 25px;
+      margin: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      border: none;
+      border-radius: 8px;
+      transition: background 0.3s, transform 0.3s;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+    a {
+      color: #fff;
+      text-decoration: underline;
+      display: inline-block;
+    }
+    #popup {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #fff8c4;
+      color: black;
+      border-radius: 12px;
+      padding: 40px;
+      z-index: 1000;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      animation: zoomIn 0.5s ease;
+    }
+    #popup2 {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #fff8c4;
+      color: black;
+      border-radius: 12px;
+      padding: 30px;
+      z-index: 1001;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      animation: zoomIn 0.5s ease;
+    }
+    #overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0,0,0,0.6);
+      z-index: 999;
+    }
+    #noBtn {
+      position: absolute;
+      background: #39ff14;
+      color: black;
+    }
+    @keyframes fadeInDown {
+      from { transform: translateY(-50px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    @keyframes zoomIn {
+      from { transform: scale(0.5) translate(-50%, -50%); opacity: 0; }
+      to { transform: scale(1) translate(-50%, -50%); opacity: 1; }
+    }
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 2rem;
+      }
+      button, a {
+        font-size: 14px;
+        padding: 10px 20px;
+      }
+      #popup, #popup2 {
+        width: 80%;
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Select Your Gender</h1>
+  <button onclick="playSound()">Male</button>
+  <button onclick="playSound()">Female</button>
+  <p><a href="#" onclick="playSound(); showPopup()">Face issue?</a></p>
+
+  <div id="overlay"></div>
+  <div id="popup">
+    <p style="font-size: 1.2rem; margin-bottom: 20px;">Are you gay?</p>
+    <button onclick="playSound(); showThanks()">Yes</button>
+    <button id="noBtn">No</button>
+  </div>
+  <div id="popup2">
+    <p style="font-size: 1.2rem;">Thanks for confirming that you are gay.</p>
+  </div>
+
+  <audio id="funSound">
+    <source src="https://www.soundjay.com/button/button-3.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    const noBtn = document.getElementById('noBtn');
+    const funSound = document.getElementById('funSound');
+    const popup2 = document.getElementById('popup2');
+
+    function showPopup() {
+      document.getElementById('popup').style.display = 'block';
+      document.getElementById('overlay').style.display = 'block';
+      moveNoBtn();
+    }
+
+    function showThanks() {
+      popup2.style.display = 'block';
+    }
+
+    function playSound() {
+      funSound.currentTime = 0;
+      funSound.play();
+    }
+
+    function moveNoBtn() {
+      let chance = Math.random();
+      noBtn.addEventListener('click', () => {
+        if (chance < 0.000001) {
+          alert('You are not a gay.');
+        }
+      });
+      function move() {
+        const x = Math.random() * (window.innerWidth - 100);
+        const y = Math.random() * (window.innerHeight - 100);
+        noBtn.style.transition = 'all 0.3s ease';
+        noBtn.style.left = `${x}px`;
+        noBtn.style.top = `${y}px`;
+      }
+      setInterval(move, 300);
+    }
+  </script>
+</body>
+</html>
